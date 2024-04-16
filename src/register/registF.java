@@ -33,7 +33,7 @@ public class registF extends javax.swing.JFrame {
         dbConnector dbc = new dbConnector();
         
         try{
-            String query = "SELECT * FROM tbl_user  WHERE u_username = '" + us.getText() + "' OR u_email = '" + mail.getText() + "'";
+            String query = "SELECT * FROM tbl_user  WHERE u_name = '" + us.getText() + "' OR u_email = '" + mail.getText() + "'";
             ResultSet resultSet = dbc.getData(query);
             
             if(resultSet.next()){
@@ -42,9 +42,9 @@ public class registF extends javax.swing.JFrame {
                       JOptionPane.showMessageDialog(null, "Email is Already Used!");
                       mail.setText("");
                 }
-                username = resultSet.getString("u_username");
+                username = resultSet.getString("u_name");
                 if(username.equals(us.getText())){
-                      JOptionPane.showMessageDialog(null, "Email is Already Used!");
+                      JOptionPane.showMessageDialog(null, "Username is Already Used!");
                       us.setText("");
             }
             return true;
@@ -85,30 +85,33 @@ public class registF extends javax.swing.JFrame {
         ut = new javax.swing.JComboBox<>();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        jPanel1 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(650, 450));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("REGISTRATION FORM");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(239, 61, 164, 32));
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 60, 250, 32));
 
-        jLabel2.setText("First Name");
+        jLabel2.setText("First Name:");
         getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 110, -1, -1));
 
-        jLabel3.setText("Last Name");
+        jLabel3.setText("Last Name:");
         getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 150, -1, -1));
 
-        jLabel4.setText("Gmail");
+        jLabel4.setText("Email:");
         getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 180, -1, -1));
 
-        jLabel5.setText("UserName");
+        jLabel5.setText("UserName:");
         getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 210, -1, -1));
 
-        jLabel6.setText("PassWord");
+        jLabel6.setText("Password:");
         getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 250, -1, -1));
 
-        jLabel7.setText("User Type");
+        jLabel7.setText("User Type:");
         getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 280, -1, -1));
         getContentPane().add(fn, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 110, 190, -1));
         getContentPane().add(ln, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 150, 190, -1));
@@ -116,7 +119,7 @@ public class registF extends javax.swing.JFrame {
         getContentPane().add(us, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 210, 190, -1));
         getContentPane().add(pw, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 250, 190, -1));
 
-        ut.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "user", "Admin", " " }));
+        ut.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Admin", "User" }));
         getContentPane().add(ut, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 280, 190, -1));
 
         jButton1.setText("Cancel");
@@ -134,6 +137,21 @@ public class registF extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 330, -1, -1));
+
+        jPanel1.setBackground(new java.awt.Color(153, 255, 153));
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 680, Short.MAX_VALUE)
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 460, Short.MAX_VALUE)
+        );
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 680, 460));
 
         pack();
         setLocationRelativeTo(null);
@@ -157,7 +175,7 @@ public class registF extends javax.swing.JFrame {
             
              dbConnector dbc = new dbConnector();
        
-      if (dbc.insertData("INSERT INTO tbl_user (u_fname, u_lname, u_email, u_username, u_password, u_type, u_status) VALUES('"
+      if (dbc.insertData("INSERT INTO tbl_user (u_fname, u_lname, u_email, u_name, u_pass, u_type, u_status) VALUES('"
      + fn.getText() + "','"+ln.getText()+"','"+ mail.getText() + "','" + us.getText() + "','" + pw.getText() + "','" + ut.getSelectedItem() + "','Pending')")){
           
         
@@ -226,6 +244,7 @@ public class registF extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField ln;
     private javax.swing.JTextField mail;
     private javax.swing.JTextField pw;
